@@ -23,16 +23,23 @@
  *│			rax = 10^n	│
  *└─────────────────────────────────────┘
  */
-long pow10i(long n) {
-	// based on fact that 10^n = 2^n * 5^n
-	asm volatile (
-		"mov	$5, %ebx		\n\t"	// for 5^n loop multiplier
-		"xor	%eax, %eax		\n\t"	// rax = 0
-		"bts	%rdi, %rax		\n\t"	// set bit(n) of rax. this gives 2^n.
-		"mov	%rdi, %rcx		\n\t"	// set loop counter
+	.file	"pow10i.s"
+	.text
+	.globl	pow10i
+	.type	pow10i, @function
 
-		"five_power_loop:		\n\t"
-			"mul	%rbx		\n\t"
-			"loop	five_power_loop	\n\t"	// rcx = n = loop counter
-	);
-}
+pow10i:
+      	mov	$5, %ebx	# for 5^n loop multiplier
+      	xor	%eax, %eax	# rax = 0
+      	bts	%rdi, %rax	# set bit(n) of rax. this gives 2^n.
+      	mov	%rdi, %rcx	# set loop counter
+
+      	five_power_loop:
+      	      	mul	%rbx
+      	      	loop	five_power_loop	# rcx = n = loop counter
+	
+	ret
+
+	.size	pow10i, .-pow10i
+	.section	.note.GNU-stack,"",@progbits
+
