@@ -23,9 +23,17 @@
  *│			rax = 2^n	│
  *└─────────────────────────────────────┘
  */
-long pow2(long n) {
-	asm volatile (
-		"xor	%eax, %eax		\n\t"	// rax = 0
-		"bts	%rdi, %rax		\n\t"	// set bit(n) of rax. this gives 2^n.
-	);
-}
+	.file	"pow2.s"
+	.text
+	.globl	pow2
+	.type	pow2, @function
+pow2:
+
+	xor	%eax, %eax	# rax = 0
+	bts	%rdi, %rax	# set bit(n) of rax. this gives 2^n.		
+
+	ret
+	
+	.size	pow2, .-pow2
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
+	.section	.note.GNU-stack,"",@progbits
