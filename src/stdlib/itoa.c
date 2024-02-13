@@ -13,7 +13,7 @@
 //| output:					│
 //|			NaN			│
 //└─────────────────────────────────────────────┘
-char* itoa (const char *str, long nbr) {
+char* itoa (const char *buffer, long value) {
 	asm volatile (
 		"mov $0xCCCCCCCCCCCCCCCD, %r8	\n\t"	// store magic number into r8
 		"mov %rdi, %rdx			\n\t"	// store *_result_str to rdx to reverse ordered store string

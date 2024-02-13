@@ -9,7 +9,10 @@
 #ifndef _BARESEA_H
 #define _BARESEA_H
 
-char* itoa (const char *str, long nbr);
+char* itoa (const char *buffer, long value);
+long ftoa (const char *buffer, double value);
+long pow2 (char n);
+long pow10i (char n);
 
 #endif /* _BARESEA_H */
 
