@@ -1,35 +1,33 @@
-/*
- *░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
- *░ This file is part of libfastact.					░
- *░									░
- *░ libfastact is free software: you can redistribute it and/or modify	░
- *░ it under the terms of the GNU General Public License as published by░
- *░ the Free Software Foundation, either version 3 of the License, or	░
- *░ (at your option) any later version.					░
- *░									░
- *░ libfastact is distributed in the hope that it will be useful,	░
- *░ but WITHOUT ANY WARRANTY; without even the implied warranty of	░
- *░ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the	░
- *░ GNU General Public License for more details.			░
- *░									░
- *░ You should have received a copy of the GNU General Public License	░
- *░ along with libfastact.  If not, see <https://www.gnu.org/licenses/>.░
- *░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
- *┌─────────────────────────────────────────────┐
- *│ converts integer to ascii			│
- *| input:					│
- *|			rsi = uint64		│
- *|			rdi = *_result_str	│
- *| output:					│
- *|			NaN			│
- *└─────────────────────────────────────────────┘
- */
+# ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+# ░ This file is part of libbaresea.					░
+# ░									░
+# ░ libfastact is free software: you can redistribute it and/or modify	░
+# ░ it under the terms of the GNU General Public License as published by░
+# ░ the Free Software Foundation, either version 3 of the License, or	░
+# ░ (at your option) any later version.					░
+# ░									░
+# ░ libfastact is distributed in the hope that it will be useful,	░
+# ░ but WITHOUT ANY WARRANTY; without even the implied warranty of	░
+# ░ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the	░
+# ░ GNU General Public License for more details.			░
+# ░									░
+# ░ You should have received a copy of the GNU General Public License	░
+# ░ along with libfastact.  If not, see <https://www.gnu.org/licenses/>.░
+# ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+# ┌─────────────────────────────────────────────┐
+# │ Converts integer to ascii			│
+# | input:					│
+# |			rsi = uint64		│
+# |			rdi = *_result_str	│
+# | output:					│
+# |			NaN			│
+# └─────────────────────────────────────────────┘
 	.file	"itoa.s"
 	.text
 	.globl	itoa
 	.type	itoa, @function
-itoa:
 
+itoa:
 	mov $0xCCCCCCCCCCCCCCCD, %r8	# store magic number into r8
 	mov %rdi, %rdx			# store *_result_str to rdx to reverse ordered store string
 	mov %rdi, %r9			# store *_result_str to r9 for reversing the string
@@ -79,7 +77,6 @@ itoa:
 		jg	itoa_rev_loop	# repeat until r9 > r8. that is, upper pointer is greater than lower pointer.
 
 	mov %rsi, %rax
-
 	ret
 
 	.size	itoa, .-itoa

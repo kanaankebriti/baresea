@@ -15,23 +15,29 @@
 # ░ along with libbaresea.  If not, see <https://www.gnu.org/licenses/>.░
 # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 # ┌─────────────────────────────┐
-# │ computes 2^n		│
-# │ input:			│
-# │		rdi = n		│
-# │ output:			│
-# │		rax = 2^n	│
+# │ Writes a character ch	│
+# | input:			│
+# |		edi = input ch	│
+# | output:			│
+# |		NaN		│
 # └─────────────────────────────┘
-	.file	"pow2.s"
+	.file	"putchar.s"
 	.text
-	.globl	pow2
-	.type	pow2, @function
+	.globl	putchar
+	.type	putchar, @function
 
-pow2:
-	xor	%eax, %eax	# rax = 0
-	bts	%rdi, %rax	# set bit(n) of rax. this gives 2^n.		
-
+putchar:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$1, %rsp
+	movl	%edi, %eax
+	movb	%al, -1(%rbp)	# store 1 byte character
+	leaq	-1(%rbp), %rsi	# send address
+	movl	$1, %ecx	# print out only 1 character
+	call	*0x00100018
+	leave
 	ret
-	
-	.size	pow2, .-pow2
+
+	.size	putchar, .-putchar
 	.section	.note.GNU-stack,"",@progbits
 
