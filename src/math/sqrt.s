@@ -14,30 +14,29 @@
 # ░ You should have received a copy of the GNU General Public License	░
 # ░ along with libbaresea.  If not, see <https://www.gnu.org/licenses/>.░
 # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-# ┌─────────────────────────────┐
-# │ Writes a character ch	│
-# | input:			│
-# |		edi = input ch	│
-# | output:			│
-# |		NaN		│
-# └─────────────────────────────┘
-	.file	"putchar.s"
+# ┌─────────────────────────────────────┐
+# │ sqruare root			│
+# │ input:				│
+# │		xmm0 = number		│
+# │ output:				│
+# │		xmm0 = sqrt(number)	│
+# │		or if number < 0	|
+# │		xmm0 = number		│
+# └─────────────────────────────────────┘
+	.file	"sqrt.s"
 	.text
-	.globl	putchar
-	.type	putchar, @function
-
-putchar:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	subq	$1, %rsp
-	movl	%edi, %eax
-	movb	%al, -1(%rbp)	# store 1 byte character
-	leaq	-1(%rbp), %rsi	# send address
-	movl	$1, %ecx	# print out only 1 character
-	call	*0x00100018
-	leave
+	.globl	sqrt
+	.type	sqrt, @function
+sqrt:
+	pxor	%xmm1, %xmm1		# xmm1 = 0
+	comisd	%xmm1, %xmm0		# cehck for negative input. xmm0 < 0
+	jb	negative_sqrt
+	sqrtsd	%xmm0, %xmm0		# Compute Square Root of Scalar Double-Precision Floating-Point Value.
+	movl	$1, %eax
 	ret
+	negative_sqrt:
+		ret
 
-	.size		putchar, .-putchar
+	.size		sqrt, .-sqrt
 	.section	.note.GNU-stack,"",@progbits
 

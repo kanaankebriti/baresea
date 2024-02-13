@@ -67,7 +67,7 @@ long ftoa (char* buffer, double value) {
 		"fisttpq	integer_part(%rbp)		\n\t"	// trunc [decimal_part] and store it to [integer_part]. at this point, decimal_part contains trailing zeros.
 "movq	decimal_part(%rbp), %rax	\n\t"
 
-		"call		pow10i			\n\t"	// rax = 10^rcx and rcx is loop counter
+		//"call		pow10i			\n\t"	// rax = 10^rcx and rcx is loop counter
 	/*mov		rcx,[integer_part]	; rcx = [integer_part]
 	mul		rcx					; rax = [integer_part] * 10^rcx
 	sub		[decimal_part],rax	; now decimal_part contains only digits after radix point

@@ -32,6 +32,6 @@ pow2:
 
 	ret
 	
-	.size	pow2, .-pow2
+	.size		pow2, .-pow2
 	.section	.note.GNU-stack,"",@progbits
 

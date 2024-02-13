@@ -79,5 +79,5 @@ itoa:
 	mov %rsi, %rax
 	ret
 
-	.size	itoa, .-itoa
+	.size		itoa, .-itoa
 	.section	.note.GNU-stack,"",@progbits

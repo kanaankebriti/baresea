@@ -37,6 +37,6 @@ pow10i:
       	      	loop	five_power_loop	# rcx = n = loop counter
 	ret
 
-	.size	pow10i, .-pow10i
+	.size		pow10i, .-pow10i
 	.section	.note.GNU-stack,"",@progbits
 
