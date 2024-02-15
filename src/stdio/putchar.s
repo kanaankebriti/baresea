@@ -17,7 +17,7 @@
 # ┌─────────────────────────────┐
 # │ Writes a character ch	│
 # | input:			│
-# |		edi = input ch	│
+# |		rdi = input ch	│
 # | output:			│
 # |		NaN		│
 # └─────────────────────────────┘
@@ -30,7 +30,7 @@ putchar:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$1, %rsp
-	movl	%edi, %eax
+	movq	%rdi, %rax
 	movb	%al, -1(%rbp)	# store 1 byte character
 	leaq	-1(%rbp), %rsi	# send address
 	movl	$1, %ecx	# print out only 1 character

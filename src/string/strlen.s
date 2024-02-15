@@ -21,14 +21,14 @@
 # │ output:				│
 # │		rax = length of	str	│
 # └─────────────────────────────────────┘
-	.file	"strlen2.s"
+	.file	"strlen.s"
 	.text
-	.globl	strlen2
-	.type	strlen2, @function
+	.globl	strlen
+	.type	strlen, @function
 
 	.set	EQUAL_EACH, 0b1000
 
-strlen2:
+strlen:
 	movq	$-16, %rax	# character counter
 	pxor	%xmm0, %xmm0	# compare against null charachter
 	next_char:
@@ -38,6 +38,6 @@ strlen2:
 		add		%rcx, %rax				# to manage the last iteration
 	ret
 
-	.size		strlen2, .-strlen2
+	.size		strlen, .-strlen
 	.section	.note.GNU-stack,"",@progbits
 

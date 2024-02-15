@@ -25,6 +25,7 @@
 	.text
 	.globl	abs
 	.type	abs, @function
+
 abs:
 	mov	%rdi, %rax	# store rdi in rax
 	neg	%rax
@@ -33,3 +34,4 @@ abs:
 
 	.size		abs, .-abs
 	.section	.note.GNU-stack,"",@progbits
+

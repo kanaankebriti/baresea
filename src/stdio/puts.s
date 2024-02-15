@@ -15,9 +15,9 @@
 # ░ along with libbaresea.  If not, see <https://www.gnu.org/licenses/>.░
 # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 # ┌─────────────────────────────┐
-# │ Writes a character ch	│
+# │ Writes a string		│
 # | input:			│
-# |		edi = input ch	│
+# |		rdi = *str	│
 # | output:			│
 # |		NaN		│
 # └─────────────────────────────┘
@@ -29,18 +29,10 @@
 puts:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	
-	
-	
-	subq	$1, %rsp
-	mov	%edi, %esi
-
-	movb	%al, -1(%rbp)	# store 1 byte character
-	leaq	-1(%rbp), %rsi	# send address
-	movl	$1, %ecx	# print out only 1 character
+	call	strlen
+	movq	%rdi, %rsi	# send address
+	movq	%rax, %rcx	# print out only 1 character
 	call	*0x00100018
-
-	
 	leave
 	ret
 

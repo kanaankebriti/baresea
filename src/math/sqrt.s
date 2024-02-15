@@ -27,6 +27,7 @@
 	.text
 	.globl	sqrt
 	.type	sqrt, @function
+
 sqrt:
 	pxor	%xmm1, %xmm1		# xmm1 = 0
 	comisd	%xmm1, %xmm0		# cehck for negative input. xmm0 < 0
