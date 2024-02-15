@@ -14,23 +14,22 @@
 # ░ You should have received a copy of the GNU General Public License	░
 # ░ along with libbaresea.  If not, see <https://www.gnu.org/licenses/>.░
 # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-# ┌─────────────────────────────┐
-# │ computes 2^n		│
-# │ input:			│
-# │		rdi = n		│
-# │ output:			│
-# │		rax = 2^n	│
-# └─────────────────────────────┘
-	.file	"pow2.s"
+# ┌─────────────────────────────────────────────┐
+# │ returns absolute value of an integer number	│
+# │ input:					│
+# │			rdi = number		│
+# │ output:					│
+# │			rax = abs(number)	│
+# └─────────────────────────────────────────────┘
+	.file	"abs.s"
 	.text
-	.globl	pow2
-	.type	pow2, @function
-
-pow2:
-	xor	%eax, %eax	# rax = 0
-	bts	%rdi, %rax	# set bit(n) of rax. this gives 2^n.
+	.globl	abs
+	.type	abs, @function
+abs:
+	mov	%rdi, %rax	# store rdi in rax
+	neg	%rax
+	cmovl	%rdi, %rax	# if rax is now negative, restore its saved value
 	ret
-	
-	.size		pow2, .-pow2
-	.section	.note.GNU-stack,"",@progbits
 
+	.size		abs, .-abs
+	.section	.note.GNU-stack,"",@progbits

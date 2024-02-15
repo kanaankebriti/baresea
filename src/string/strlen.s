@@ -14,23 +14,30 @@
 # ░ You should have received a copy of the GNU General Public License	░
 # ░ along with libbaresea.  If not, see <https://www.gnu.org/licenses/>.░
 # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-# ┌─────────────────────────────┐
-# │ computes 2^n		│
-# │ input:			│
-# │		rdi = n		│
-# │ output:			│
-# │		rax = 2^n	│
-# └─────────────────────────────┘
-	.file	"pow2.s"
+# ┌─────────────────────────────────────┐
+# │ returns length of a string		│
+# │ input:				│
+# │		rdi = *str		│
+# │ output:				│
+# │		rax = length of	str	│
+# └─────────────────────────────────────┘
+	.file	"strlen2.s"
 	.text
-	.globl	pow2
-	.type	pow2, @function
+	.globl	strlen2
+	.type	strlen2, @function
 
-pow2:
-	xor	%eax, %eax	# rax = 0
-	bts	%rdi, %rax	# set bit(n) of rax. this gives 2^n.
+	.set	EQUAL_EACH, 0b1000
+
+strlen2:
+	movq	$-16, %rax	# character counter
+	pxor	%xmm0, %xmm0	# compare against null charachter
+	next_char:
+    		addq		$16, %rax 				# read 16 chars
+    		pcmpistri	$EQUAL_EACH, (%rdi, %rax), %xmm0	# returns index of zero in address (%rdi, %rax) if any to ecx
+    		jnz		next_char				# or try again in next loop
+		add		%rcx, %rax				# to manage the last iteration
 	ret
-	
-	.size		pow2, .-pow2
+
+	.size		strlen2, .-strlen2
 	.section	.note.GNU-stack,"",@progbits
 
