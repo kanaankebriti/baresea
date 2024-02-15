@@ -19,12 +19,11 @@
 
 #ifndef _BARESEA_H
 #define _BARESEA_H
-void putchar2 (char __c);
+
 char* itoa (const char *buffer, long value);
 long ftoa (const char *buffer, double value);
 long pow2 (char n);
 long pow10i (char n);
-long strlen2(char* str);
 
 #endif /* _BARESEA_H */
 
